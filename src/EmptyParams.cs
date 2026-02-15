@@ -5,7 +5,6 @@ namespace Soenneker.Blazor.Utils.ComponentHtmlRenderers;
 internal sealed class EmptyParams : IReadOnlyDictionary<string, object?>
 {
     public static readonly EmptyParams Instance = new();
-
     public int Count => 0;
     public IEnumerable<string> Keys { get { yield break; } }
     public IEnumerable<object?> Values { get { yield break; } }

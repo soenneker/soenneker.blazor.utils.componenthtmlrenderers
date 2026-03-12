@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Blazor.Utils.ComponentHtmlRenderers.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Blazor.Utils.ComponentHtmlRenderers\Soenneker.Blazor.Utils.ComponentHtmlRenderers.csproj" />
     </ItemGroup>
 
     <ItemGroup>

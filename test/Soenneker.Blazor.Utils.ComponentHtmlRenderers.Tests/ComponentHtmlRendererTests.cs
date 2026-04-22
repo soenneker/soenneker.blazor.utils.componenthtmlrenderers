@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using Soenneker.Blazor.Utils.ComponentHtmlRenderers.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Blazor.Utils.ComponentHtmlRenderers.Tests;
 
-[Collection("Collection")]
-public sealed class ComponentHtmlRendererTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class ComponentHtmlRendererTests : HostedUnitTest
 {
     private readonly IComponentHtmlRenderer _util;
 
-    public ComponentHtmlRendererTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public ComponentHtmlRendererTests(Host host) : base(host)
     {
         _util = Resolve<IComponentHtmlRenderer>(true);
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_generic_renders_simple_component()
     {
         string html = await _util.RenderToHtml<SimpleTestComponent>();
@@ -26,7 +25,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("test-component").And.Contain("Hello from test component");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_Type_overload_renders_simple_component()
     {
         string html = await _util.RenderToHtml(typeof(SimpleTestComponent));
@@ -34,7 +33,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("test-component").And.Contain("Hello from test component");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_null_parameters_uses_empty_params()
     {
         string html = await _util.RenderToHtml<SimpleTestComponent>(null);
@@ -42,7 +41,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("Hello from test component");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_empty_dictionary_renders()
     {
         var parameters = new Dictionary<string, object?>();
@@ -51,7 +50,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("Hello from test component");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_parameters_passes_to_component()
     {
         var parameters = new Dictionary<string, object?>
@@ -63,7 +62,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("Custom message").And.Contain("data-message");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_buildParameters_passes_to_component()
     {
         string html = await _util.RenderToHtml(typeof(ParameterizedTestComponent), dict =>
@@ -74,28 +73,28 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
         html.Should().Contain("Built by delegate");
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_Type_with_null_componentType_throws()
     {
         Func<Task> act = () => _util.RenderToHtml((Type)null!);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_buildParameters_null_componentType_throws()
     {
         Func<Task> act = () => _util.RenderToHtml((Type)null!, _ => { });
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
-    [Fact]
+    [Test]
     public async Task RenderToHtml_with_buildParameters_null_buildParameters_throws()
     {
         Func<Task> act = () => _util.RenderToHtml(typeof(SimpleTestComponent), (Action<Dictionary<string, object?>>)null!);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
-    [Fact]
+    [Test]
     public async Task DisposeAsync_does_not_throw()
     {
         var renderer = Resolve<IComponentHtmlRenderer>(true);
@@ -106,7 +105,7 @@ public sealed class ComponentHtmlRendererTests : FixturedUnitTest
     /// Ensures the renderer does not produce malformed button HTML with corrupted classes
     /// (e.g. &amp; instead of & in arbitrary selectors, jumbled/broken class attribute).
     /// </summary>
-    [Fact]
+    [Test]
     public async Task RenderToHtml_does_not_generate_malformed_button_with_corrupted_class()
     {
         const string malformedButton =

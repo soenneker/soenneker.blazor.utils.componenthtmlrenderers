@@ -137,6 +137,10 @@ public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
     private static string HtmlDecode(string html)
         => string.IsNullOrEmpty(html) ? html : WebUtility.HtmlDecode(html);
 
+    /// <summary>
+    /// Asynchronously releases resources used by the current instance.
+    /// </summary>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async ValueTask DisposeAsync()
     {
         await _renderer.DisposeAsync().NoSync();

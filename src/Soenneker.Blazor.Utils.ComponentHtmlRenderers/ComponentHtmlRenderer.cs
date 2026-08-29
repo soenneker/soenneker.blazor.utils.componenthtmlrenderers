@@ -14,11 +14,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Blazor.Utils.ComponentHtmlRenderers;
 
-/// <summary>
-/// Renders Blazor components to HTML strings using Blazor's <see cref="HtmlRenderer"/>.
-/// No framework-specific registrations are performed; all initialization is external.
-/// Reflection is used only during warm-up to compile delegates, then cached.
-/// </summary>
+/// <inheritdoc cref="IComponentHtmlRenderer"/>
 public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
 {
     private readonly HtmlRenderer _renderer;

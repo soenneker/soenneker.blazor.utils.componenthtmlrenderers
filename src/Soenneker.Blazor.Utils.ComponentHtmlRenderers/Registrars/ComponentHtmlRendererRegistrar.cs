@@ -12,6 +12,8 @@ public static class ComponentHtmlRendererRegistrar
     /// <summary>
     /// Adds <see cref="IComponentHtmlRenderer"/> as a singleton service. <para/>
     /// </summary>
+    /// <param name="services">Service collection that receives the registration.</param>
+    /// <returns>The same service collection, so additional registrations can be chained.</returns>
     public static IServiceCollection AddComponentHtmlRendererAsSingleton(this IServiceCollection services)
     {
         services.TryAddSingleton<IComponentHtmlRenderer, ComponentHtmlRenderer>();
@@ -22,6 +24,8 @@ public static class ComponentHtmlRendererRegistrar
     /// <summary>
     /// Adds <see cref="IComponentHtmlRenderer"/> as a scoped service. <para/>
     /// </summary>
+    /// <param name="services">Service collection that receives the registration.</param>
+    /// <returns>The same service collection, so additional registrations can be chained.</returns>
     public static IServiceCollection AddComponentHtmlRendererAsScoped(this IServiceCollection services)
     {
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();

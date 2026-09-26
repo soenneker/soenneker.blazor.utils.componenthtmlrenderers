@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ public interface IComponentHtmlRenderer : IAsyncDisposable
     /// <param name="htmlDecode">Whether to HTML-decode the complete rendered string. Use only for trusted build-time text processing, never for HTML that will be served.</param>
     /// <returns>A task whose result is the rendered HTML string.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="componentType"/> is <see langword="null"/>.</exception>
-    Task<string> RenderToHtml(Type componentType, IReadOnlyDictionary<string, object?>? parameters = null, bool htmlDecode = false);
+    Task<string> RenderToHtml([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, IReadOnlyDictionary<string, object?>? parameters = null, bool htmlDecode = false);
 
     /// <summary>
     /// Renders a component using its generic type as a fast path.
@@ -33,7 +34,7 @@ public interface IComponentHtmlRenderer : IAsyncDisposable
     /// <param name="htmlDecode">Whether to HTML-decode the complete rendered string. Use only for trusted build-time text processing, never for HTML that will be served.</param>
     /// <returns>A task whose result is the rendered HTML string.</returns>
     /// <remarks>This overload avoids passing a <see cref="Type"/> at runtime.</remarks>
-    Task<string> RenderToHtml<TComponent>(IReadOnlyDictionary<string, object?>? parameters = null, bool htmlDecode = false)
+    Task<string> RenderToHtml<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TComponent>(IReadOnlyDictionary<string, object?>? parameters = null, bool htmlDecode = false)
         where TComponent : IComponent;
 
     /// <summary>
@@ -45,5 +46,5 @@ public interface IComponentHtmlRenderer : IAsyncDisposable
     /// <returns>A task whose result is the rendered HTML string.</returns>
     /// <remarks>This overload avoids requiring callers to allocate a parameter dictionary before the call.</remarks>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="componentType"/> or <paramref name="buildParameters"/> is <see langword="null"/>.</exception>
-    Task<string> RenderToHtml(Type componentType, Action<Dictionary<string, object?>> buildParameters, bool htmlDecode = false);
+    Task<string> RenderToHtml([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, Action<Dictionary<string, object?>> buildParameters, bool htmlDecode = false);
 }

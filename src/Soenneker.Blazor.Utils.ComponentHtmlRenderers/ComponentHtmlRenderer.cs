@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.HtmlRendering;
@@ -60,7 +61,7 @@ public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
     }
 
     public Task<string> RenderToHtml(
-        Type componentType,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType,
         IReadOnlyDictionary<string, object?>? parameters = null,
         bool htmlDecode = false)
     {
@@ -74,7 +75,7 @@ public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
         return _renderer.Dispatcher.InvokeAsync(() => RenderCore(componentType, parameters, htmlDecode));
     }
 
-    public Task<string> RenderToHtml<TComponent>(
+    public Task<string> RenderToHtml<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TComponent>(
         IReadOnlyDictionary<string, object?>? parameters = null,
         bool htmlDecode = false)
         where TComponent : IComponent
@@ -88,7 +89,7 @@ public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
     }
 
     public Task<string> RenderToHtml(
-        Type componentType,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType,
         Action<Dictionary<string, object?>> buildParameters,
         bool htmlDecode = false)
     {
@@ -105,7 +106,7 @@ public sealed class ComponentHtmlRenderer : IComponentHtmlRenderer
     }
 
     private async Task<string> RenderCore(
-        Type componentType,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType,
         IReadOnlyDictionary<string, object?> parameters,
         bool htmlDecode)
     {

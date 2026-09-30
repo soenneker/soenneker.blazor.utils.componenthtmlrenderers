@@ -29,7 +29,7 @@ public sealed class ComponentHtmlRendererConstructorTests
     }
 
     [Test]
-    public async Task Constructor_with_configureServices_renders_component()
+    public async ValueTask Constructor_with_configureServices_renders_component()
     {
         await using var renderer = new ComponentHtmlRenderer(services =>
         {

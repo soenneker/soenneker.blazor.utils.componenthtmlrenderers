@@ -46,7 +46,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.12" />
-        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.767" />
+        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.770" />
         <PackageReference Include="Soenneker.Extensions.Task" Version="4.0.131" />
         <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.124" />
     </ItemGroup>

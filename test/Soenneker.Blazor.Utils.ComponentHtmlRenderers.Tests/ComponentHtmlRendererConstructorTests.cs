@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace Soenneker.Blazor.Utils.ComponentHtmlRenderers.Tests;
 
@@ -29,7 +30,7 @@ public sealed class ComponentHtmlRendererConstructorTests
     }
 
     [Test]
-    public async ValueTask Constructor_with_configureServices_renders_component()
+    public async ValueTask Constructor_with_configureServices_renders_component(CancellationToken cancellationToken)
     {
         await using var renderer = new ComponentHtmlRenderer(services =>
         {
